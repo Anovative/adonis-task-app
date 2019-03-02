@@ -1,6 +1,6 @@
 {
   "name": "adonis-task-app",
-  "version": "4.1.0",
+  "version": "1.0.0",
   "adonis-version": "4.1.0",
   "description": "Another 'Task App' using AdonisJS and Edge templating.",
   "main": "index.js",
@@ -33,7 +33,9 @@
     "@adonisjs/validator": "^5.0.6",
     "mysql2": "^1.6.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jshint": "^2.10.1"
+  },
   "autoload": {
     "App": "./app"
   }
