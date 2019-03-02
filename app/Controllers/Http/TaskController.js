@@ -1,6 +1,7 @@
 'use strict'
 
 const Task = use('App/Models/Task')
+const { validate } = use('Validator')
 
 class TaskController {
 
@@ -14,16 +15,20 @@ class TaskController {
 
   async store ({ request, response, session }) {
     // validate form input
-    // const validation = await validate(request.all(), {
-    //   title: 'required|min:3|max:255'
-    // })
-    //
-    // // show error messages upon validation fail
-    // if (validation.fails()) {
-    //   session.withErrors(validation.messages()).flashAll()
-    //
-    //   return response.redirect('back')
-    // }
+    const validation = await validate(request.all(), {
+      title: 'required|min:3|max:255'
+    }, {
+      'title.required': 'A title is required for your task',
+      'title.min': 'The task must be at least three characters',
+      'title.max': 'The maximum task length is 255 characters'
+    })
+
+    // show error messages upon validation fail
+    if (validation.fails()) {
+      session.withErrors(validation.messages()).flashAll()
+
+      return response.redirect('back')
+    }
 
     // persist to database
     const task = new Task()
